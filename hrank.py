@@ -12,11 +12,11 @@ def row_normalize(M):
 
 def custom_sort(a, b):
     if a[0]>b[0]:
-        return 1
+        return -1
     elif a[0]==b[0] and a[1]<b[1]:
-        return 1
+        return -1
 
-    return -1
+    return 1
 
 
 # A->P<-A
