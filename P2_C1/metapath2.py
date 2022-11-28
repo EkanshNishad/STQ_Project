@@ -10,7 +10,6 @@ class Metapath2:
     def __init__(self, collection, project_name):
         self.BRID = Build_reverse_identity_dictionary()
         self.BRID.reading_identity_and_people_and_building_reverse_identity_dictionary()
-        global db, project, dev_names, U_dev_pr, U_pr_dev, U_pr_file, U_file_pr
         self.db = MongoClient("mongodb://localhost:27017/")["smartshark"]
 
         self.project = project_name

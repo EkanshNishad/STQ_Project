@@ -130,4 +130,4 @@ def mean_time_of_decision(project,decision):
         t1=(list(db["pull_request"].find({"_id":pr_event_ids[p]}, {"created_at":1,"_id":0}))[0]["created_at"])
         td=t2-t1
         sum_time+=(td.total_seconds())
-        return sum_time/len(pr_event_ids)
+    return sum_time/len(pr_event_ids)

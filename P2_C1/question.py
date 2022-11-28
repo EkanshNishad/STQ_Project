@@ -98,7 +98,6 @@ def review_time_more_than_mean_time(project,decision):
     M_pr_pr=review_time_less_than_mean_time(project,decision)
     if M_pr_pr[0] == "Decision not found":
         return M_pr_pr
-    print(M_pr_pr)
     for i in range(len(prs)):
         M_pr_pr[i][i]=not M_pr_pr[i][i]
     return M_pr_pr
