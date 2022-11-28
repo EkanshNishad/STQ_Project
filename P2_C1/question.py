@@ -62,10 +62,9 @@ def review_time_less_than_mean_time(project, decision):
         t1 = (list(db["pull_request"].find({"_id": pr_event_ids[p]}, {"created_at": 1, "_id": 0}))[0]["created_at"])
         td = t2 - t1
         sum_time += (td.total_seconds())
-    mean_time = sum_time / len(pr_event_ids)
-
     if len(pr_event_ids)==0:
         return "Decision not found", "Decision not found"
+    mean_time = sum_time / len(pr_event_ids)
 
     prs_with_review_more_mean_time = list()
     for p in pr_event_ids:
@@ -97,6 +96,9 @@ def review_time_more_than_mean_time(project,decision):
     prs = [x["_id"] for x in prs]
 
     M_pr_pr=review_time_less_than_mean_time(project,decision)
+    if M_pr_pr[0] == "Decision not found":
+        return M_pr_pr
+    print(M_pr_pr)
     for i in range(len(prs)):
         M_pr_pr[i][i]=not M_pr_pr[i][i]
     return M_pr_pr
@@ -177,6 +179,8 @@ def review_time_more_than_mean_time_accepted(project):
     pr_indexes = {k: v for v, k in enumerate(prs)}
 
     M_pr_pr=review_time_less_than_mean_time_accepted(project)
+    if M_pr_pr[0] == "Decision not found":
+        return M_pr_pr
     for i in range(len(prs)):
         M_pr_pr[i][i]=not M_pr_pr[i][i]
     return M_pr_pr
