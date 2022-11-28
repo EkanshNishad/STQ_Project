@@ -186,6 +186,8 @@ class Metapath5:
     ### 9
     def q9(self):
         M_pr_pr = review_time_less_than_mean_time_accepted(self.project)
+        if M_pr_pr[0] == "Decision not found":
+            return M_pr_pr[0]
 
         metapath1 = np.matmul(self.U_dev_pr, np.matmul(M_pr_pr, np.matmul(M_pr_pr, self.U_pr_int)))
         metapath2 = np.matmul(self.U_int_pr, np.matmul(M_pr_pr, np.matmul(M_pr_pr, self.U_pr_dev)))
@@ -199,6 +201,8 @@ class Metapath5:
     # 10
     def q10(self):
         M_pr_pr = review_time_more_than_mean_time_accepted(project)
+        if M_pr_pr[0] == "Decision not found":
+            return M_pr_pr[0]
 
         metapath1 = np.matmul(self.U_dev_pr, np.matmul(M_pr_pr, np.matmul(M_pr_pr, self.U_pr_int)))
         metapath2 = np.matmul(self.U_int_pr, np.matmul(M_pr_pr, np.matmul(M_pr_pr, self.U_pr_dev)))
