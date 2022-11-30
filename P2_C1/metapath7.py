@@ -103,14 +103,19 @@ class Metapath7:
         M_pr_prr = np.zeros((len(prs), len(prrevs)))
         M_prr_rev = np.zeros((len(prrevs), len(reviewers)))
 
-
-        commits = list(self.db["commit"].find({"vcs_system_id":vcs_system_id}, {"author_id":1, "_id":1}))
+        commits = list(self.db["commit"].find({"vcs_system_id": vcs_system_id}, {"author_id": 1, "_id": 1}))
+        commits2 = list(self.db["commit"].find({"vcs_system_id": vcs_system_id}, {"committer_id": 1, "_id": 1}))
+        commits = commits + commits2
         for cm in commits:
             file_by_cm = list(self.db["file_action"].find({"commit_id":cm['_id']}, {"file_id":1}))
             file_by_cm = set([x['file_id'] for x in file_by_cm])
             for x in file_by_cm:
-                ids = self.BRID.reverse_identity_dict[cm['author_id']]
-                M_dev_file[id_indexes[ids]][file_indexes[x]] = 1
+                if 'author_id' in cm:
+                    ids = self.BRID.reverse_identity_dict[cm['author_id']]
+                    M_dev_file[id_indexes[ids]][file_indexes[x]] = 1
+                else:
+                    ids = self.BRID.reverse_identity_dict[cm['committer_id']]
+                    M_dev_file[id_indexes[ids]][file_indexes[x]] = 1
 
 
         path_to_file = {}
